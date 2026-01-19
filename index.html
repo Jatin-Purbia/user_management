@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management Workflow Diagrams</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .workflow-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .workflow-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .workflow-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .workflow-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .workflow-description {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .toc {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .toc h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc a:hover {
+            color: #764ba2;
+            padding-left: 10px;
+        }
+
+        .legend {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .legend h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .workflow-title {
+                font-size: 1.4em;
+            }
+
+            .toc a {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 User Management Workflow Diagrams</h1>
+            <p>Muah Super Admin - Complete Process Flows</p>
+        </div>
+
+        <div class="legend">
+            <h3>📊 Diagram Legend</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e1f5e1;"></div>
+                    <span>Start/End Points</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fff4e6;"></div>
+                    <span>Decision Points</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e3f2fd;"></div>
+                    <span>System Actions</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f3e5f5;"></div>
+                    <span>Audit/Logging</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffebee;"></div>
+                    <span>Security/Alerts</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="toc">
+            <h2>📑 Table of Contents</h2>
+            <ul>
+                <li><a href="#workflow1">→ Workflow 1: Creating a New User</a></li>
+                <li><a href="#workflow2">→ Workflow 2: Modifying User Permissions</a></li>
+                <li><a href="#workflow3">→ Workflow 3: Investigating Suspicious Activity</a></li>
+                <li><a href="#workflow4">→ Workflow 4: Creating and Managing Teams</a></li>
+                <li><a href="#workflow5">→ Workflow 5: Revoking User Access</a></li>
+                <li><a href="#workflow6">→ Workflow 6: Audit Log Review for Compliance</a></li>
+                <li><a href="#workflow7">→ Workflow 7: Role Permission Change Request</a></li>
+            </ul>
+        </div>
+
+        <!-- Workflow 1 -->
+        <div class="workflow-card" id="workflow1">
+            <div class="workflow-title">
+                <span class="workflow-number">1</span>
+                <span>Creating a New User</span>
+            </div>
+            <div class="workflow-description">
+                This workflow guides administrators through the complete process of creating a new user account, from initial navigation through to invitation email delivery. It includes role assignment, team allocation, and MFA configuration.
+            </div>
+            <div class="mermaid">
+flowchart TD
+    Start([Admin Initiates User Creation]) --> Navigate[Navigate to User Management<br/>Platform Users]
+    Navigate --> ClickCreate[Click 'Create User' Button]
+    ClickCreate --> EnterDetails[Enter User Details:<br/>- Name<br/>- Email<br/>- Phone Number]
+    EnterDetails --> AssignRole[Assign Role:<br/>- Super Admin<br/>- Service Account<br/>- Admin<br/>- Viewer]
+    AssignRole --> AssignTeam[Assign Team/Department]
+    AssignTeam --> SetStatus[Set Initial Status:<br/>- Active<br/>- Pending]
+    SetStatus --> ConfigMFA{Configure MFA<br/>Requirement?}
+    ConfigMFA -->|Yes| EnableMFA[Enable MFA Required]
+    ConfigMFA -->|No| SkipMFA[MFA Optional]
+    EnableMFA --> Review[Review User Configuration]
+    SkipMFA --> Review
+    Review --> Confirm{Confirm<br/>Creation?}
+    Confirm -->|Yes| CreateUser[System Creates User Account]
+    Confirm -->|No| ModifyDetails[Modify Details]
+    ModifyDetails --> Review
+    CreateUser --> SendEmail[System Sends Invitation Email]
+    SendEmail --> LogAction[Log Action in Audit Logs]
+    LogAction --> End([User Created Successfully])
+
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style ConfigMFA fill:#fff4e6
+    style Confirm fill:#fff4e6
+    style CreateUser fill:#e3f2fd
+    style LogAction fill:#f3e5f5
+            </div>
+        </div>
+
+        <!-- Workflow 2 -->
+        <div class="workflow-card" id="workflow2">
+            <div class="workflow-title">
+                <span class="workflow-number">2</span>
+                <span>Modifying User Permissions</span>
+            </div>
+            <div class="workflow-description">
+                This workflow demonstrates how administrators modify user permissions through role-based access control. It includes impact analysis, security alert handling, and stakeholder notification for large-scale changes.
+            </div>
+            <div class="mermaid">
+flowchart TD
+    Start([Admin Needs to Update Permissions]) --> Navigate[Navigate to User Management<br/>Roles & Permissions]
+    Navigate --> SelectRole[Select Role to Modify]
+    SelectRole --> ViewCurrent[View Current Permission Matrix]
+    ViewCurrent --> IdentifyChanges[Identify Required Changes]
+    IdentifyChanges --> TogglePerms[Toggle Permissions:<br/>- View<br/>- Create<br/>- Edit<br/>- Delete<br/>- SEAL<br/>- Export]
+    TogglePerms --> ReviewImpact[Review Impact Preview]
+    ReviewImpact --> CheckUsers{How Many Users<br/>Affected?}
+    CheckUsers -->|Few Users| DirectApply[Proceed with Changes]
+    CheckUsers -->|Many Users| NotifyStakeholders[Notify Stakeholders]
+    NotifyStakeholders --> DirectApply
+    DirectApply --> SecurityCheck{Security Alerts<br/>Detected?}
+    SecurityCheck -->|Yes| ReviewAlerts[Review Security Warnings:<br/>- MFA Required<br/>- Sensitive Permissions]
+    SecurityCheck -->|No| SaveChanges[Click 'Save & Review Changes']
+    ReviewAlerts --> ConfirmOverride{Confirm<br/>Override?}
+    ConfirmOverride -->|Yes| SaveChanges
+    ConfirmOverride -->|No| ModifyPerms[Adjust Permissions]
+    ModifyPerms --> TogglePerms
+    SaveChanges --> UpdateSystem[System Updates Permissions]
+    UpdateSystem --> NotifyUsers[Notify Affected Users]
+    NotifyUsers --> LogAudit[Log Change in Audit Logs]
+    LogAudit --> End([Permissions Updated Successfully])
+
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style CheckUsers fill:#fff4e6
+    style SecurityCheck fill:#ffebee
+    style ConfirmOverride fill:#fff4e6
+    style UpdateSystem fill:#e3f2fd
+    style LogAudit fill:#f3e5f5
+            </div>
+        </div>
+
+        <!-- Workflow 3 -->
+        <div class="workflow-card" id="workflow3">
+            <div class="workflow-title">
+                <span class="workflow-number">3</span>
+                <span>Investigating Suspicious Activity</span>
+            </div>
+            <div class="workflow-description">
+                A comprehensive security workflow for investigating and responding to suspicious user activity. Includes forensic analysis, threat assessment, and immediate response actions including session revocation.
+            </div>
+            <div class="mermaid">
+flowchart TD
+    Start([Security Alert Received]) --> NavigateAccess[Navigate to User Management<br/>Access Logs]
+    NavigateAccess --> FilterLogs{Known User<br/>or Pattern?}
+    FilterLogs -->|Known User| FilterByUser[Filter by User Account]
+    FilterLogs -->|Pattern/Date| FilterByDate[Filter by Date Range<br/>or Location]
+    FilterByUser --> ReviewEntries[Review Access Log Entries]
+    FilterByDate --> ReviewEntries
+    ReviewEntries --> IdentifyAnomaly[Identify Unusual Patterns:<br/>- Multiple Failed Attempts<br/>- Unknown Locations<br/>- Unusual Times]
+    IdentifyAnomaly --> ClickEntry[Click Suspicious Entry]
+    ClickEntry --> ViewForensics[View Event Forensics Panel]
+    ViewForensics --> AnalyzeData[Analyze Forensic Data:<br/>- Travel Patterns<br/>- Device Information<br/>- IP Intelligence<br/>- User Agent]
+    AnalyzeData --> ThreatLevel{Threat Level<br/>Assessment}
+    ThreatLevel -->|High Risk| ImmediateAction[Take Immediate Action]
+    ThreatLevel -->|Medium Risk| MonitorContinue[Flag for Monitoring]
+    ThreatLevel -->|Low Risk| DocumentOnly[Document Findings]
+    ImmediateAction --> CheckSessions[Navigate to Login Sessions]
+    MonitorContinue --> SetAlert[Set Up Monitoring Alert]
+    DocumentOnly --> LogIncident[Log in Audit System]
+    CheckSessions --> ViewActiveSessions[View User's Active Sessions]
+    ViewActiveSessions --> IdentifySuspicious[Identify Suspicious Sessions]
+    IdentifySuspicious --> RevokeDecision{Revoke<br/>Session?}
+    RevokeDecision -->|Yes| RevokeSession[Click 'Revoke Active Session']
+    RevokeDecision -->|No| FlagUser[Click 'Flag User']
+    RevokeSession --> ConfirmRevoke[Confirm Revocation]
+    ConfirmRevoke --> NotifyUser[System Notifies User]
+    FlagUser --> NotifyUser
+    NotifyUser --> CheckAudit[Navigate to Audit Logs]
+    SetAlert --> CheckAudit
+    LogIncident --> CheckAudit
+    CheckAudit --> ReviewRelated[Review Related Administrative Actions]
+    ReviewRelated --> DocumentIncident[Document Complete Incident]
+    DocumentIncident --> NotifySecurity[Notify Security Team]
+    NotifySecurity --> End([Investigation Complete])
+
+    style Start fill:#ffebee
+    style End fill:#e1f5e1
+    style ThreatLevel fill:#fff4e6
+    style RevokeDecision fill:#fff4e6
+    style ImmediateAction fill:#ffebee
+    style RevokeSession fill:#e3f2fd
+    style NotifySecurity fill:#f3e5f5
+            </div>
+        </div>
+
+        <!-- Workflow 4 -->
+        <div class="workflow-card" id="workflow4">
+            <div class="workflow-title">
+                <span class="workflow-number">4</span>
+                <span>Creating and Managing Teams</span>
+            </div>
+            <div class="workflow-description">
+                This workflow covers the complete process of creating organizational teams/departments, including manager assignment, scope definition, role linking, and member management.
+            </div>
+            <div class="mermaid">
+flowchart TD
+    Start([Need to Create New Team]) --> Navigate[Navigate to User Management<br/>Teams / Departments]
+    Navigate --> ClickCreate[Click 'Create Team' Button]
+    ClickCreate --> EnterName[Enter Team Name<br/>and Description]
+    EnterName --> SelectType[Select Team Type:<br/>- Department<br/>- Squad<br/>- Region]
+    SelectType --> AssignManager[Assign Team Manager]
+    AssignManager --> DefineScope[Define Scope:<br/>- Global/HQ<br/>- Specific Region]
+    DefineScope --> LinkRoles[Link Inherited Roles]
+    LinkRoles --> AddMembers{Add Members<br/>Now?}
+    AddMembers -->|Yes| SelectMembers[Select Team Members]
+    AddMembers -->|No| SkipMembers[Skip Member Assignment]
+    SelectMembers --> ReviewTeam[Review Team Configuration]
+    SkipMembers --> ReviewTeam
+    ReviewTeam --> Confirm{Confirm Team<br/>Creation?}
+    Confirm -->|Yes| SaveTeam[Save and Activate Team]
+    Confirm -->|No| ModifyTeam[Modify Team Details]
+    ModifyTeam --> ReviewTeam
+    SaveTeam --> LogCreation[Log Action in Audit Logs]
+    LogCreation --> AssignUsers{Need to Assign<br/>More Users?}
+    AssignUsers -->|Yes| NavigateUsers[Navigate to Platform Users]
+    AssignUsers -->|No| NotifyManager[Notify Team Manager]
+    NavigateUsers --> SelectUser[Select Users to Add]
+    SelectUser --> AssignToTeam[Assign Users to Team]
+    AssignToTeam --> NotifyManager
+    NotifyManager --> End([Team Created and Configured])
+
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style AddMembers fill:#fff4e6
+    style Confirm fill:#fff4e6
+    style AssignUsers fill:#fff4e6
+    style SaveTeam fill:#e3f2fd
+    style LogCreation fill:#f3e5f5
+            </div>
+        </div>
+
+        <!-- Workflow 5 -->
+        <div class="workflow-card" id="workflow5">
+            <div class="workflow-title">
+                <span class="workflow-number">5</span>
+                <span>Revoking User Access (Employee Departure)</span>
+            </div>
+            <div class="workflow-description">
+                A critical security workflow for handling employee departures, including immediate access revocation, data backup, ownership transfer, and proper account archival or deletion according to retention policies.
+            </div>
+            <div class="mermaid">
+flowchart TD
+    Start([Employee Departure Notification]) --> Urgent{Immediate Access<br/>Revocation Required?}
+    Urgent -->|Yes - Security Risk| RevokeSessions[Navigate to Login Sessions]
+    Urgent -->|No - Standard Offboarding| PlanOffboard[Plan Offboarding Timeline]
+    RevokeSessions --> FindSessions[Filter by User]
+    FindSessions --> ViewActive[View All Active Sessions]
+    ViewActive --> RevokeAll[Revoke All Active Sessions]
+    RevokeAll --> ConfirmRevoke[Confirm Bulk Revocation]
+    PlanOffboard --> ScheduleDate[Set Access Termination Date]
+    ScheduleDate --> NavigateUsers[Navigate to Platform Users]
+    ConfirmRevoke --> NavigateUsers
+    NavigateUsers --> FindUser[Locate User Account]
+    FindUser --> ClickEdit[Click Edit User]
+    ClickEdit --> ChangeStatus[Change Status to 'Suspended']
+    ChangeStatus --> RemovePerms{Remove Role<br/>Assignments?}
+    RemovePerms -->|Yes| UnassignRoles[Unassign All Roles]
+    RemovePerms -->|No| KeepRoles[Maintain Role History]
+    UnassignRoles --> RemoveTeams[Remove from All Teams]
+    KeepRoles --> RemoveTeams
+    RemoveTeams --> DisableMFA[Disable MFA Tokens]
+    DisableMFA --> SaveChanges[Save User Changes]
+    SaveChanges --> DataBackup{Backup User<br/>Data Required?}
+    DataBackup -->|Yes| ExportData[Export User Data and Documents]
+    DataBackup -->|No| SkipBackup[Skip Data Export]
+    ExportData --> TransferOwnership[Transfer Ownership:<br/>- Documents<br/>- Projects<br/>- Responsibilities]
+    SkipBackup --> TransferOwnership
+    TransferOwnership --> NotifyStakeholders[Notify Relevant Teams]
+    NotifyStakeholders --> DocumentOffboard[Document Offboarding in Audit Logs]
+    DocumentOffboard --> ScheduleReview{Full Account<br/>Deletion Needed?}
+    ScheduleReview -->|Yes - After Retention| ScheduleDeletion[Schedule Account Deletion<br/>Per Policy]
+    ScheduleReview -->|No - Archive| ArchiveAccount[Archive Account]
+    ScheduleDeletion --> End([User Access Revoked])
+    ArchiveAccount --> End
+
+    style Start fill:#ffebee
+    style End fill:#e1f5e1
+    style Urgent fill:#ffebee
+    style RemovePerms fill:#fff4e6
+    style DataBackup fill:#fff4e6
+    style ScheduleReview fill:#fff4e6
+    style RevokeAll fill:#e3f2fd
+    style DocumentOffboard fill:#f3e5f5
+            </div>
+        </div>
+
+        <!-- Workflow 6 -->
+        <div class="workflow-card" id="workflow6">
+            <div class="workflow-title">
+                <span class="workflow-number">6</span>
+                <span>Audit Log Review for Compliance</span>
+            </div>
+            <div class="workflow-description">
+                A structured approach to conducting compliance audits through audit log review. Includes anomaly detection, investigation, export procedures, and corrective action workflows.
+            </div>
+            <div class="mermaid">
+flowchart TD
+    Start([Compliance Audit Scheduled]) --> Navigate[Navigate to User Management<br/>Audit Logs]
+    Navigate --> DefineScope[Define Audit Scope:<br/>- Date Range<br/>- Specific Users/Roles<br/>- Action Types]
+    DefineScope --> SetFilters[Apply Filters:<br/>- Actor<br/>- Actions<br/>- Entity<br/>- Results]
+    SetFilters --> ReviewLogs[Review Filtered Audit Logs]
+    ReviewLogs --> IdentifyAnomalies[Identify Anomalies:<br/>- Unauthorized Changes<br/>- Failed Actions<br/>- Unusual Patterns]
+    IdentifyAnomalies --> AnomaliesFound{Anomalies<br/>Detected?}
+    AnomaliesFound -->|Yes| InvestigateEntry[Click Log Entry for Details]
+    AnomaliesFound -->|No| ProceedExport[Proceed to Export]
+    InvestigateEntry --> ViewDetails[View Log Details Panel:<br/>- Change Summary<br/>- Request Metadata<br/>- Operational Context]
+    ViewDetails --> CopyJSON{Need Raw<br/>Data?}
+    CopyJSON -->|Yes| ExportJSON[Copy Raw JSON Entry]
+    CopyJSON -->|No| DocumentFindings[Document Findings]
+    ExportJSON --> DocumentFindings
+    DocumentFindings --> MoreEntries{More Entries to<br/>Review?}
+    MoreEntries -->|Yes| ReviewLogs
+    MoreEntries -->|No| ProceedExport
+    ProceedExport --> ExportData[Click 'Export Logs']
+    ExportData --> SelectFormat[Select Export Format:<br/>- CSV<br/>- JSON]
+    SelectFormat --> DownloadFile[Download Export File]
+    DownloadFile --> VerifyExport[Verify Export Completeness]
+    VerifyExport --> StoreCompliance[Store in Compliance Archive]
+    StoreCompliance --> GenerateReport[Generate Compliance Report]
+    GenerateReport --> ReviewReport[Review Report Findings]
+    ReviewReport --> ActionRequired{Corrective Actions<br/>Required?}
+    ActionRequired -->|Yes| CreateTickets[Create Remediation Tickets]
+    ActionRequired -->|No| DocumentCompliance[Document Compliance Status]
+    CreateTickets --> AssignOwners[Assign Action Owners]
+    AssignOwners --> DocumentCompliance
+    DocumentCompliance --> NotifyManagement[Notify Management]
+    NotifyManagement --> ScheduleNext[Schedule Next Audit Review]
+    ScheduleNext --> End([Compliance Audit Complete])
+
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style AnomaliesFound fill:#fff4e6
+    style CopyJSON fill:#fff4e6
+    style MoreEntries fill:#fff4e6
+    style ActionRequired fill:#fff4e6
+    style ExportData fill:#e3f2fd
+    style StoreCompliance fill:#f3e5f5
+            </div>
+        </div>
+
+        <!-- Workflow 7 -->
+        <div class="workflow-card" id="workflow7">
+            <div class="workflow-title">
+                <span class="workflow-number">7</span>
+                <span>Role Permission Change Request Flow</span>
+            </div>
+            <div class="workflow-description">
+                An enterprise-grade workflow for managing permission change requests, including validation, approval routing, testing procedures, scheduled deployment, and rollback capabilities.
+            </div>
+            <div class="mermaid">
+flowchart TD
+    Start([Permission Change Request Received]) --> ReviewRequest[Review Request Details:<br/>- Requestor<br/>- Role to Modify<br/>- Justification<br/>- Business Need]
+    ReviewRequest --> ValidateRequest{Request Valid<br/>and Justified?}
+    ValidateRequest -->|No| RejectRequest[Reject Request]
+    ValidateRequest -->|Yes| CheckApproval{Approval<br/>Required?}
+    RejectRequest --> NotifyRequestor[Notify Requestor of Rejection]
+    NotifyRequestor --> EndReject([Request Rejected])
+    CheckApproval -->|Yes - Sensitive Perms| RouteApproval[Route to Approver:<br/>- Manager<br/>- Security Team<br/>- Compliance]
+    CheckApproval -->|No - Standard Change| ProceedChange[Proceed with Change]
+    RouteApproval --> WaitApproval[Wait for Approval Decision]
+    WaitApproval --> ApprovalDecision{Approved?}
+    ApprovalDecision -->|No| RejectRequest
+    ApprovalDecision -->|Yes| ProceedChange
+    ProceedChange --> NavigateRoles[Navigate to Roles & Permissions]
+    NavigateRoles --> SelectRole[Select Target Role]
+    SelectRole --> BackupCurrent[Document Current Permissions]
+    BackupCurrent --> ModifyPermissions[Modify Permission Settings]
+    ModifyPermissions --> TestChange{Test in Non-Prod<br/>If Available?}
+    TestChange -->|Yes| RunTests[Execute Permission Tests]
+    TestChange -->|No| SkipTests[Skip Testing]
+    RunTests --> TestResults{Tests<br/>Passed?}
+    TestResults -->|No| RollbackTest[Rollback Test Changes]
+    TestResults -->|Yes| SkipTests
+    RollbackTest --> ModifyPermissions
+    SkipTests --> ReviewImpact[Review Impact Preview]
+    ReviewImpact --> ScheduleChange{Schedule Change<br/>or Apply Now?}
+    ScheduleChange -->|Schedule| SetSchedule[Set Maintenance Window]
+    ScheduleChange -->|Apply Now| ApplyChanges[Apply Permission Changes]
+    SetSchedule --> NotifySchedule[Notify Affected Users of Schedule]
+    NotifySchedule --> WaitSchedule[Wait for Scheduled Time]
+    WaitSchedule --> ApplyChanges
+    ApplyChanges --> VerifyChanges[Verify Changes Applied]
+    VerifyChanges --> Success{Changes Successful<br/>and Working?}
+    Success -->|No| RollbackProd[Rollback to Previous State]
+    Success -->|Yes| NotifyComplete[Notify Requestor and Users]
+    RollbackProd --> InvestigateFailure[Investigate Failure]
+    InvestigateFailure --> DocumentIssue[Document Issue]
+    DocumentIssue --> NotifyFailure[Notify Stakeholders of Rollback]
+    NotifyFailure --> EndFail([Change Rolled Back])
+    NotifyComplete --> DocumentChange[Document in Audit Logs]
+    DocumentChange --> UpdateDocs[Update Role Documentation]
+    UpdateDocs --> End([Permission Change Complete])
+
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style EndReject fill:#ffebee
+    style EndFail fill:#ffebee
+    style ValidateRequest fill:#fff4e6
+    style CheckApproval fill:#fff4e6
+    style ApprovalDecision fill:#fff4e6
+    style TestChange fill:#fff4e6
+    style TestResults fill:#fff4e6
+    style ScheduleChange fill:#fff4e6
+    style Success fill:#fff4e6
+    style ApplyChanges fill:#e3f2fd
+    style DocumentChange fill:#f3e5f5
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
